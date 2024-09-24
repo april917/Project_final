@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load custom_filters %}  <!-- Retaining custom filters if necessary -->
+
+{% block title %}Search Employee{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Search Employees</h2>
+    
+    <form method="post" action="{% url 'search_employee' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="employee_name">Search By:</label>
+            {{ form.employee_name|add_class:"form-control" }}  <!-- Retaining form-control class for styling -->
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>  <!-- Consistent button styling -->
+    </form>
+    
+    {% if employees is not None %}
+        <div class="mt-4">
+            <h3>Search Results:</h3>
+            {% if employees %}
+                <ul class="list-group">  <!-- Keeping the Bootstrap list group styling -->
+                    {% for employee in employees %}
+                        <li class="list-group-item">{{ employee.name }} - {{ employee.role }}</li>  <!-- Including the role in the results -->
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="alert alert-info mt-4">No results found.</div>  <!-- Retaining the no results alert -->
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

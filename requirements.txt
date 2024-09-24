@@ -1,0 +1,5 @@
+pandas==2.0.3  # or the latest compatible version with visions
+scikit-learn==1.2.2
+joblib==1.2.0
+gunicorn
+whitenoise

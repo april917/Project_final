@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load form_tags %}
+
+
+{% block title %}Skill-Based Resource Allocation{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Skill-Based Resource Allocation</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="employee" class="form-label">Select Employee</label>
+            {{ form.employee|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="project" class="form-label">Select Project</label>
+            {{ form.project|add_class:"form-control" }}
+        </div>
+        <button type="submit" class="btn btn-primary">Allocate</button>
+    </form>
+
+    {% if prediction %}
+    <div class="mt-4">
+        <h4>Prediction:</h4>
+        <p>{{ prediction }}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

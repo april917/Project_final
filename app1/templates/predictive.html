@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Workload Prediction{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center">
+    <div class="form-container">
+        <h2 class="mb-4 text-center">Workload Prediction</h2>
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.workload.label_tag }}
+                {{ form.workload }}
+                <div class="invalid-feedback">Please enter a valid workload.</div>
+            </div>
+            <div class="mb-3">
+                {{ form.performance_trend.label_tag }}
+                {{ form.performance_trend }}
+                <div class="invalid-feedback">Please enter a valid performance trend.</div>
+            </div>
+            <div class="mb-3">
+                {{ form.burn_rate.label_tag }}
+                {{ form.burn_rate }}
+                <div class="invalid-feedback">Please enter a valid burn rate.</div>
+            </div>
+            <div class="mb-3">
+                {{ form.overtime.label_tag }}
+                {{ form.overtime }}
+                <div class="invalid-feedback">Please enter a valid overtime.</div>
+            </div>
+            <div class="mb-3">
+                {{ form.promotion_last_5_years.label_tag }}
+                {{ form.promotion_last_5_years }}
+                <div class="invalid-feedback">Please select an option.</div>
+            </div>
+            <div class="mb-3">
+                {{ form.availability.label_tag }}
+                {{ form.availability }}
+                <div class="invalid-feedback">Please select availability.</div>
+            </div>
+            <div class="mb-3">
+                {{ form.years_at_company.label_tag }}
+                {{ form.years_at_company }}
+                <div class="invalid-feedback">Please enter a valid number of years.</div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Predict</button>
+            </div>
+
+            <!-- Display the prediction result -->
+            {% if prediction_label %}
+            <div class="prediction-result mt-3 text-center">
+                The predicted workload balance is: <strong>{{ prediction_label }}</strong>
+            </div>
+            {% endif %}
+
+            <!-- Display unresolved allocation alerts if present -->
+            {% if alerts %}
+            <div class="alert-section mt-3">
+                <h4 class="text-center">Unresolved Allocation Alerts:</h4>
+                <ul class="text-center">
+                    {% for alert in alerts %}
+                    <li>{{ alert }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+<script>
+    (function () {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}

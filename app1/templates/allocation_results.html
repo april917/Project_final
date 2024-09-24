@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Resource Allocation Results for {{ project.name }}</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Skills</th>
+                <th>Availability (hours)</th>
+                <th>Experience (years)</th>
+                <th>Current Project Assignment</th>
+                <th>Overtime</th>
+                <th>Number of Projects</th>
+                <th>Average Monthly Hours</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.skills.all|join:", " }}</td>
+                <td>{{ employee.availability }}</td>
+                <td>{{ employee.experience }}</td>
+                <td>{{ employee.project_assignment }}</td>
+                <td>{{ employee.overtime }}</td>
+                <td>{{ employee.number_of_projects }}</td>
+                <td>{{ employee.average_monthly_hours }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

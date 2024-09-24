@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Project Allocation{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Project Allocation</h2>
+    
+    {% if error_message %}
+        <div class="alert alert-danger">{{ error_message }}</div>
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="search_by" class="form-label">Search by</label>
+            <select name="search_by" id="search_by" class="form-select">
+                <option value="employee">Employee Name</option>
+                <option value="role">Role</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="search_value" class="form-label">Search Value</label>
+            <input type="text" name="search_value" id="search_value" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    
+    {% if search_results %}
+        <h3 class="mt-4">Search Results</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Project Assignment</th>
+                    <th>Availability</th>
+                    <th>Skills</th>
+                    <th>Experience</th>
+                    <th>Roles</th> <!-- Change from 'Number of Projects' to 'Roles' -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in search_results %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="{% url 'assign_project' employee.id %}" style="text-decoration: none;">{{ employee.name }}</a></td>
+                        <td>
+                            {% if employee.project_assignment %}
+                                {{ employee.project_assignment.name }}
+                            {% else %}
+                                Not Assigned
+                            {% endif %}
+                        </td>
+                        <td>{{ employee.availability }}</td>
+                        <td>
+                            {% if employee.skills.exists %}
+                                {% for skill in employee.skills.all %}
+                                    {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                None
+                            {% endif %}
+                        </td>
+                        <td>{{ employee.experience }}</td>
+                        <td>
+                            {% if employee.roles %}
+                                {{ employee.roles.name }} <!-- Displaying single role -->
+                            {% else %}
+                                Not Assigned
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

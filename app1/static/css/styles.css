@@ -1,0 +1,13 @@
+h2.text-center {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+ul.list-group {
+    margin-top: 20px;
+}
+
+.alert-info {
+    background-color: #d9edf7;
+    color: #31708f;
+}
