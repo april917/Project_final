@@ -1,6 +1,6 @@
 pandas==2.2.2  # or the latest compatible version with visions
-scikit-learn==1.2.2
-joblib==1.2.0
+scikit-learn==1.5.0
+joblib==1.4.2
 gunicorn
 whitenoise
 django==5.1
