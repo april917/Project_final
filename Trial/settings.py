@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',  # For local development
-    'workload-prediction.onrender.com',  # Replace with your domain for production
+    'project-final-5new.onrender.com',  # Replace with your domain for production
 ]
 
 # Application definition
